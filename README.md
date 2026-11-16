@@ -1,26 +1,25 @@
-# A4 Label Sheets (Etykiety A4)
+# A4 Label Sheets
 
 Print shipping labels (e.g. 4×6" from FedEx, DPD, UPS…) onto **A4 sticker sheets with 4 labels per page**
-using an ordinary laser/inkjet printer. Load PDF labels, see a live preview, fix scale if something doesn't fit, print.
-
-*PL: drukuj etykiety wysyłkowe 4×6" na arkuszach A4 z czterema naklejkami (ćwiartki A4) zwykłą drukarką.
-Wczytujesz PDF-y, widzisz podgląd, w razie potrzeby poprawiasz skalę i drukujesz. Interfejs programu jest po polsku.*
+using an ordinary laser/inkjet printer. Load PDF labels, see a live preview, fix the scale if something
+doesn't fit, print.
 
 ![screenshot](docs/screenshot.png)
 
-(The screenshot uses a fictional label from [`examples/`](examples/).)
+*(The screenshot uses a fictional label from [`examples/`](examples/).)*
 
 ## Features
 
 - Load several PDFs at once (file dialog, drag & drop, or command-line arguments); every PDF page is one label
 - A4 preview split into four quarters (105 × 148.5 mm), with the printer's non-printable margin shown
 - **Auto-fit**: measures the real content of the label and scales it to fit the sticker and the printable area
-- Manual scale (% of original), X/Y offset in mm, 90° rotation — per quarter
+- Manual scale (% of original), X/Y offset in mm, 90° rotation — per sticker
 - Red warning when a label sticks out of the sticker or the printable area, *before* you waste a sticker
-- Remembers which stickers on the sheet are already used (**"Nowy arkusz"** = new sheet)
+- Remembers which stickers on the sheet are already used (**New sheet** resets it)
 - Test mode: prints the sticker outlines on plain paper so you can check alignment against the real sheet
 - Renders at 600 dpi; optional sharp black & white output so barcodes stay crisp
 - Save the composed A4 sheet as PDF instead of printing
+- Interface in **English** and **Polish** (picked from your locale, or `--lang en|pl`)
 
 ## Install
 
@@ -41,28 +40,34 @@ Run it:
 
 ```bash
 python3 a4_label_sheets.py [label.pdf ...]
-./install.sh            # optional: adds an "Etykiety A4" launcher to your application menu
+python3 a4_label_sheets.py --lang pl      # force the Polish interface
+python3 a4_label_sheets.py --version
+./install.sh              # optional: adds an "A4 Label Sheets" launcher to your application menu
 ./install.sh --uninstall
 ```
 
 ## Printing — please read
 
-1. **Always do a test print on plain paper first**: tick *"Rysuj ramki naklejek"* (draw sticker outlines),
-   print, and hold the page against the sticker sheet in front of a light. Adjust margin / offset if needed.
+1. **Always do a test print on plain paper first**: tick *"Draw sticker outlines"*, print, and hold the page
+   against the sticker sheet in front of a light. Adjust margin / offset if needed.
    Test prints do not mark stickers as used.
 2. The app sends the sheet with `lp -o media=A4 -o print-scaling=none -o fit-to-page=false -o StpiShrinkOutput=Crop`.
    The last option only matters for Gutenprint drivers and is ignored by others. If your driver rescales the page,
    tweak `send_to_printer()` in the source.
-3. Printers differ in their non-printable margin — change **Margines druku** (default 4 mm) to match yours.
+3. Printers differ in their non-printable margin — change **Print margin** (default 4 mm) to match yours.
 
 ## Status / limitations
 
 - Tested on **Linux Mint 22 (X11)** with an HP LaserJet 1160 (Gutenprint driver). Other distros, Wayland and
   other printers should work in principle (GTK 3 + CUPS) but are untested.
-- The user interface is Polish only.
 - Output is a 600 dpi raster (not vector) — good enough for barcodes in practice, but not for tiny fine print.
-- Linux only (uses `lp`/`lpstat`/`pdftoppm`).
+- Linux only (uses `lp` / `lpstat` / `pdftoppm`).
 - Provided as is, no support promised. Pull requests are welcome.
+
+## Versioning
+
+[Semantic Versioning](https://semver.org/). Current version: see `__version__` in
+[`a4_label_sheets.py`](a4_label_sheets.py) or run `--version`. Changes are listed in [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
@@ -72,8 +77,11 @@ python3 a4_label_sheets.py [label.pdf ...]
 
 ## PL — skrót
 
+![zrzut ekranu](docs/screenshot-pl.png)
+
 **Instalacja:** zainstaluj zależności (komenda `apt` powyżej), uruchom `python3 a4_label_sheets.py`.
-Opcjonalnie `./install.sh` doda skrót do menu aplikacji.
+Interfejs włącza się po polsku automatycznie, gdy system ma polskie ustawienia regionalne (albo `--lang pl`).
+Opcjonalnie `./install.sh` doda skrót „Etykiety A4” do menu aplikacji.
 
 **Użycie:** „Otwórz PDF…” (lub przeciągnij pliki na okno) → sprawdź podgląd → w razie potrzeby odznacz
 „Dopasuj automatycznie” i ustaw skalę/przesunięcie → „Drukuj”. Po wydruku ćwiartki są oznaczane jako zużyte;
