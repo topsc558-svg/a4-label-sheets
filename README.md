@@ -58,10 +58,10 @@ python3 a4_label_sheets.py --version
 
 ## Status / limitations
 
-- Developed on **Linux Mint 22 (X11)** with an HP LaserJet 1160 (Gutenprint driver). The interface, preview and
-  sheet generation are tested there; **physical print alignment is still being verified** (v0.1.0), so please
-  follow the plain-paper test above and report what you see. Other distros, Wayland and other printers should work
-  in principle (GTK 3 + CUPS) but are untested.
+- Tested on **Linux Mint 22 (X11)** with an HP LaserJet 1160 (Gutenprint driver), including real prints onto
+  sticker sheets. Other distros, Wayland and other printers should work in principle (GTK 3 + CUPS) but are
+  untested — if your printer rescales or shifts the page, use the plain-paper test above and tweak
+  *Print margin* / the offsets, or `send_to_printer()` in the source.
 - Output is a 600 dpi raster (not vector) — good enough for barcodes in practice, but not for tiny fine print.
 - Linux only (uses `lp` / `lpstat` / `pdftoppm`).
 - Provided as is, no support promised. Pull requests are welcome.

@@ -14,6 +14,6 @@ First version.
 - Test mode with sticker outlines for plain-paper alignment checks
 - 600 dpi rendering, optional sharp black & white output, save as PDF, printing via CUPS (`lp`)
 - English and Polish interface (from the locale or `--lang`), `--version`
-- Known: print alignment on real hardware is not yet verified; use the plain-paper test mode first
+- Verified on Linux Mint 22 + HP LaserJet 1160: prints land correctly on the stickers
 - The saved state moved to `~/.config/a4-label-sheets/`; a state file from the earlier working name
   (`~/.config/etykiety-a4/`) is still read once if the new one does not exist
